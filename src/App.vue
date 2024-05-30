@@ -1,19 +1,23 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
-// import AppFooter from './components/AppFooter.vue';
+import store from './Data/store.js';
+import AppMain from './components/AppMain.vue';
 
 export default {
   components: {
-
+    AppHeader,
+    AppMain,
   },
   data() {
     return {
-
+      store,
     }
   },
   methods: {
+
   },
   mounted() {
+
   }
 }
 </script>
@@ -22,9 +26,7 @@ export default {
 
   <AppHeader />
 
-  <main>
-
-  </main>
+  <AppMain />
 
 
 

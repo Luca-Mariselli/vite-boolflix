@@ -17,3 +17,10 @@ header {
 main {
   padding: 1rem;
 }
+
+.my-placeholder {
+  display: block;
+  margin: auto;
+  width: 342px;
+
+}

@@ -13,6 +13,7 @@ export default {
         }
     },
     methods: {
+        // richiesta axios per cercare film
         cercaFilm() {
             const options = {
                 method: 'GET',
@@ -32,6 +33,8 @@ export default {
 
                 });
         },
+
+        // richiesta axios per cercare serie
         cercaSerie() {
             const options = {
                 method: 'GET',
@@ -63,6 +66,7 @@ export default {
 
         <div class="d-flex flex-column  justify-content-center">
             <div class="mb-2">Cerca film o serie TV:</div>
+            <!-- cerca film e serie al riempimento -->
             <div><input v-model="text" type="input" @keyup="cercaFilm(), cercaSerie()" /></div>
         </div>
 

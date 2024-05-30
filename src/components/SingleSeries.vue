@@ -5,7 +5,8 @@ export default {
 
     },
     props: {
-        serieSingola: Object
+        serieSingola: Object,
+        indexSerie: Number
     },
     data() {
         return {
@@ -13,6 +14,16 @@ export default {
         }
     },
     methods: {
+        seriesCardShow(indexSerie) {
+
+            document.getElementById(indexSerie).classList.remove('hidden')
+            document.getElementById('show' + indexSerie).classList.add('hidden')
+
+        },
+        seriesCardHide(indexSerie) {
+            document.getElementById(indexSerie).classList.add('hidden')
+            document.getElementById('show' + indexSerie).classList.remove('hidden')
+        }
 
     },
     mounted() {
@@ -21,69 +32,74 @@ export default {
 </script>
 
 <template>
-    <div class="col-3 p-2 mb-3">
-        <!-- Titolo -->
-        <div><span>Titolo:</span> {{ serieSingola.name }}</div>
-        <!-- Titolo originale -->
-        <div><span>Titolo Originale:</span> {{ serieSingola.original_name }}</div>
+    <div @mouseover="seriesCardShow(indexSerie)" @mouseleave="seriesCardHide(indexSerie)"
+        class="colonna-custom mx-2 mb-5">
+        <div :id="indexSerie" class="hidden">
+            <!-- Titolo -->
+            <div><span>Titolo:</span> {{ serieSingola.name }}</div>
+            <!-- Titolo originale -->
+            <div><span>Titolo Originale:</span> {{ serieSingola.original_name }}</div>
 
-        <!-- Lingua -->
-        <div v-if="serieSingola.original_language == 'en'">
-            <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt=""> /
-            <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="">
-        </div>
-        <div v-else-if="serieSingola.original_language == 'ja'">
-            <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/jp.svg" alt="">
-        </div>
-        <div v-else-if="serieSingola.original_language == 'it'">
-            <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="">
-        </div>
-        <div v-else>
-            <span>Paese:</span> <img class="bandiera-w" src="../Data/img/International_Flag_of_Planet_Earth.svg" alt="">
-        </div>
+            <!-- Lingua -->
+            <div v-if="serieSingola.original_language == 'en'">
+                <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt=""> /
+                <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="">
+            </div>
+            <div v-else-if="serieSingola.original_language == 'ja'">
+                <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/jp.svg" alt="">
+            </div>
+            <div v-else-if="serieSingola.original_language == 'it'">
+                <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="">
+            </div>
+            <div v-else>
+                <span>Paese:</span> <img class="bandiera-w" src="../Data/img/International_Flag_of_Planet_Earth.svg"
+                    alt="">
+            </div>
 
-        <!-- Voto -->
-        <div><span>Voto:</span>
-            <span v-if="(serieSingola.vote_average / 2).toFixed(2) >= 4.5">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-            </span>
-            <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 3.5">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-            </span>
-            <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 2.5">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-            </span>
-            <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 1.5">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-            </span>
-            <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 0.5">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
-            </span>
+            <!-- Voto -->
+            <div><span>Voto:</span>
+                <span v-if="(serieSingola.vote_average / 2).toFixed(2) >= 4.5">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                </span>
+                <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 3.5">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </span>
+                <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 2.5">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </span>
+                <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 1.5">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </span>
+                <span v-else-if="(serieSingola.vote_average / 2).toFixed(2) >= 0.5">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </span>
+            </div>
         </div>
-
         <!-- Immagine -->
-        <img v-if="serieSingola.backdrop_path != null" :src="store.apiPrefix + serieSingola.backdrop_path" alt="">
-        <img class="my-placeholder" v-else src="../Data/img/504e88f1a30f968e13f4cdd854aab685.png" alt="">
+        <div :id="'show' + indexSerie">
+            <img v-if="serieSingola.backdrop_path != null" :src="store.apiPrefix + serieSingola.poster_path" alt="">
+            <img class="my-placeholder" v-else src="../Data/img/504e88f1a30f968e13f4cdd854aab685.png" alt="">
+        </div>
     </div>
 </template>
 

@@ -19,8 +19,31 @@ main {
 }
 
 .my-placeholder {
-  display: block;
-  margin: auto;
+  margin-top: 50%;
   width: 342px;
+}
 
+.hidden {
+  display: none;
+}
+
+.colonna-custom{
+  min-height: 513px;
+  background-color: black;
+  width: 342px;
+}
+
+.my-border{
+  border: 1px crimson solid;
+  padding: 0.7rem;
+  border-radius: 35px;
+}
+
+.my-overflow{
+  overflow-y: scroll;
+  height: 10rem;
+}
+.my-overflow::-webkit-scrollbar {
+  width: 10px;
+  
 }

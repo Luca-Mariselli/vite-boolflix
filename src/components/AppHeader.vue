@@ -31,6 +31,25 @@ export default {
                     console.log(this.store.myMovies)
 
                 });
+        },
+        cercaSerie() {
+            const options = {
+                method: 'GET',
+                url: 'https://api.themoviedb.org/3/search/tv',
+                params: { query: this.text, include_adult: 'false', language: 'en-US', page: '1' },
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMTU2MTY2Y2M5NmEzMWQ0MWYzZDE5ZDk1NGY4MDZlOCIsInN1YiI6IjY2NTc0OWVmNjYxYTlkNmU5ZWU0ZTczZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.k7JG6XHgACkHP-dErkHmqWRxR0k7-zLrIsaWAjo7vmk'
+                }
+
+            };
+            axios
+                .request(options)
+                .then(response => {
+                    this.store.mySeries = response.data.results
+                    console.log(this.store.mySeries)
+
+                });
         }
     },
     mounted() {
@@ -44,7 +63,7 @@ export default {
 
         <div class="d-flex flex-column  justify-content-center">
             <div class="mb-2">Cerca film o serie TV:</div>
-            <div><input v-model="text" type="input" @keyup="cercaFilm()" /></div>
+            <div><input v-model="text" type="input" @keyup="cercaFilm(), cercaSerie()" /></div>
         </div>
 
     </header>

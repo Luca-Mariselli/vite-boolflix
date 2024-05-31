@@ -18,6 +18,11 @@ main {
   padding: 1rem;
 }
 
+.div-ph-grandezza{
+  width: 342px;
+  height: 513px;
+}
+
 .my-placeholder {
   margin-top: 50%;
   width: 342px;
@@ -46,4 +51,8 @@ main {
 .my-overflow::-webkit-scrollbar {
   width: 10px;
   
+}
+
+.my-copertine:hover{
+  opacity: 0.2;
 }

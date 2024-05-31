@@ -11,18 +11,20 @@ export default {
     data() {
         return {
             store,
+            isHovered: false
         }
     },
     methods: {
-        seriesCardShow(indexSerie) {
-
-            document.getElementById(indexSerie).classList.remove('hidden')
-            document.getElementById('show' + indexSerie).classList.add('hidden')
+        seriesCardShow() {
+            this.isHovered = true
+            // document.getElementById(i).classList.remove('hidden')
+            // document.getElementById('show' + i).classList.add('hidden')
 
         },
-        seriesCardHide(indexSerie) {
-            document.getElementById(indexSerie).classList.add('hidden')
-            document.getElementById('show' + indexSerie).classList.remove('hidden')
+        seriesCardHide() {
+            this.isHovered = false
+            //     document.getElementById(i).classList.add('hidden')
+            //     document.getElementById('show' + i).classList.remove('hidden')
         }
 
     },
@@ -33,31 +35,41 @@ export default {
 
 <template>
     <div @mouseover="seriesCardShow(indexSerie)" @mouseleave="seriesCardHide(indexSerie)"
-        class="colonna-custom mx-2 mb-5">
-        <div :id="indexSerie" class="hidden">
+        class="colonna-custom mx-2 mb-5 position-relative">
+        <div class="p-2" v-if="isHovered">
             <!-- Titolo -->
-            <div><span>Titolo:</span> {{ serieSingola.name }}</div>
+            <div class="d-flex mb-3 my-border">
+                <span class="col-4">Titolo:</span>
+                <div> {{ serieSingola.name }}</div>
+            </div>
             <!-- Titolo originale -->
-            <div><span>Titolo Originale:</span> {{ serieSingola.original_name }}</div>
+            <div class="d-flex mb-3 my-border">
+                <span class="col-4">Titolo Originale:</span>
+                <div>{{ serieSingola.original_name }}</div>
+            </div>
 
+            <div class="d-flex mb-3 my-border my-overflow">
+                <span class="col-4">Descrizione:</span>
+                <div> {{ serieSingola.overview }}</div>
+            </div>
             <!-- Lingua -->
-            <div v-if="serieSingola.original_language == 'en'">
+            <div class="mb-3 my-border" v-if="serieSingola.original_language == 'en'">
                 <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt=""> /
                 <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="">
             </div>
-            <div v-else-if="serieSingola.original_language == 'ja'">
+            <div class="mb-3 my-border" v-else-if="serieSingola.original_language == 'ja'">
                 <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/jp.svg" alt="">
             </div>
-            <div v-else-if="serieSingola.original_language == 'it'">
+            <div class="mb-3 my-border" v-else-if="serieSingola.original_language == 'it'">
                 <span>Paese:</span> <img class="bandiera-w" src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="">
             </div>
-            <div v-else>
+            <div class="mb-3 my-border" v-else>
                 <span>Paese:</span> <img class="bandiera-w" src="../Data/img/International_Flag_of_Planet_Earth.svg"
                     alt="">
             </div>
 
             <!-- Voto -->
-            <div><span>Voto:</span>
+            <div class="mb-3 my-border"><span>Voto:</span>
                 <span v-if="(serieSingola.vote_average / 2).toFixed(2) >= 4.5">
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
@@ -96,9 +108,11 @@ export default {
             </div>
         </div>
         <!-- Immagine -->
-        <div :id="'show' + indexSerie">
+        <div class="position-absolute top-50 start-50 translate-middle my-copertine">
             <img v-if="serieSingola.backdrop_path != null" :src="store.apiPrefix + serieSingola.poster_path" alt="">
-            <img class="my-placeholder" v-else src="../Data/img/504e88f1a30f968e13f4cdd854aab685.png" alt="">
+            <div v-else class="div-ph-grandezza">
+                <img class="my-placeholder" src="../Data/img/504e88f1a30f968e13f4cdd854aab685.png" alt="">
+            </div>
         </div>
     </div>
 </template>

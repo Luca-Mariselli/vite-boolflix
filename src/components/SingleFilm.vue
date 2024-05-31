@@ -11,19 +11,15 @@ export default {
     data() {
         return {
             store,
-
+            isHovered: false
         }
     },
     methods: {
-        filmCardShow(indexFilm) {
-
-            document.getElementById(indexFilm).classList.remove('hidden')
-            document.getElementById('show' + indexFilm).classList.add('hidden')
-
+        filmCardShow() {
+            this.isHovered = true
         },
-        filmCardHide(indexFilm) {
-            document.getElementById(indexFilm).classList.add('hidden')
-            document.getElementById('show' + indexFilm).classList.remove('hidden')
+        filmCardHide() {
+            this.isHovered = false
         }
 
     },
@@ -33,8 +29,9 @@ export default {
 </script>
 
 <template>
-    <div @mouseover="filmCardShow(indexFilm)" @mouseleave="filmCardHide(indexFilm)" class="colonna-custom mx-2 mb-5">
-        <div :id="indexFilm" class="hidden p-2">
+    <div @mouseover="filmCardShow(indexFilm)" @mouseleave="filmCardHide(indexFilm)"
+        class="colonna-custom mx-2 mb-5 position-relative">
+        <div class="p-2" v-if="isHovered">
             <!-- Titolo -->
             <div class="d-flex mb-3 my-border">
                 <span class="col-4">Titolo:</span>
@@ -106,9 +103,11 @@ export default {
             </div>
         </div>
         <!-- Immagine -->
-        <div :id="'show' + indexFilm">
+        <div class="position-absolute top-50 start-50 translate-middle my-copertine">
             <img v-if="filmSingolo.backdrop_path != null" :src="store.apiPrefix + filmSingolo.poster_path" alt="">
-            <img class="my-placeholder" v-else src="../Data/img/504e88f1a30f968e13f4cdd854aab685.png" alt="">
+            <div v-else class="div-ph-grandezza">
+                <img class="my-placeholder" src="../Data/img/504e88f1a30f968e13f4cdd854aab685.png" alt="">
+            </div>
         </div>
     </div>
 </template>
